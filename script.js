@@ -1,10 +1,12 @@
 const API_KEY = "ZJzvG87iB1XSOj2MEh6deyjhGrL3FqkN";
 const limit = 10;
+let offset = 0;
 const rating = 'g';
 
 const searchForm = document.querySelector("#searchForm");
 const imageArea = document.querySelector("#flex-container");
 
+let temp = true;
 searchForm.addEventListener("submit", getGiphys);
 async function getGiphys (event) {
     event.preventDefault();
@@ -14,7 +16,6 @@ async function getGiphys (event) {
 
     const responseData = await getResponse(apiURL);
     const urlArray = getImageURLS(responseData);
-    console.log(urlArray)
 
     displayImages(urlArray);
 }
@@ -34,9 +35,14 @@ function getImageURLS (responseData) {
 }
 
 function displayImages (urlArray) {
+    clearContainer();
     urlArray.forEach((element) => {
         addImage(element);
     })
+}
+
+function clearContainer () {
+    imageArea.innerHTML = "";
 }
 
 function addImage (imgURL) {
