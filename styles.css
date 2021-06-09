@@ -1,0 +1,16 @@
+header p{
+    text-align: center;
+}
+
+#search-section {
+    display: flex;
+    justify-content: center;
+}
+
+#grid-container {
+    display: grid;
+}
+
+.grid-item {
+
+}
