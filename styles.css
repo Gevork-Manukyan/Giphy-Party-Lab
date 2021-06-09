@@ -21,3 +21,15 @@ header p{
     margin: 10px;
     justify-self: stretch;
 }
+
+#loadMoreArea {
+    text-align: center;
+}
+
+#loadMoreBtn {
+
+}
+
+.hidden {
+    visibility: hidden;
+}

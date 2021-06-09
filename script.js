@@ -2,18 +2,36 @@ const API_KEY = "ZJzvG87iB1XSOj2MEh6deyjhGrL3FqkN";
 const limit = 10;
 let offset = 0;
 const rating = 'g';
+let searchInput;
 
 const searchForm = document.querySelector("#searchForm");
 const imageArea = document.querySelector("#flex-container");
+const loadMoreBtn = document.querySelector("#loadMoreBtn");
 
-let temp = true;
 searchForm.addEventListener("submit", getGiphys);
 async function getGiphys (event) {
     event.preventDefault();
-    
-    const searchInput = event.target.searchItem.value;
-    const apiURL = `http://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchInput}&limit=${limit}`;
 
+    searchInput = event.target.searchItem.value;    
+    const apiURL = `http://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchInput}&limit=${limit}&rating=${rating}`;
+
+    const responseData = await getResponse(apiURL);
+    const urlArray = getImageURLS(responseData);
+
+    clearContainer();
+    displayImages(urlArray);
+    if (searchInput == "")
+        hideLoadMore();
+    else 
+        showLoadMore();
+}
+
+loadMoreBtn.addEventListener("click", loadMore);
+async function loadMore () {
+    event.preventDefault();
+    offset += limit;
+
+    const apiURL = `http://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchInput}&limit=${limit}&rating=${rating}&offset=${offset}`;
     const responseData = await getResponse(apiURL);
     const urlArray = getImageURLS(responseData);
 
@@ -35,7 +53,6 @@ function getImageURLS (responseData) {
 }
 
 function displayImages (urlArray) {
-    clearContainer();
     urlArray.forEach((element) => {
         addImage(element);
     })
@@ -51,4 +68,12 @@ function addImage (imgURL) {
         <img src="${imgURL}">
     </div>
     `;
+}
+
+function hideLoadMore () {
+    loadMoreBtn.classList.add("hidden");
+}
+
+function showLoadMore () {
+    loadMoreBtn.classList.remove("hidden");
 }
