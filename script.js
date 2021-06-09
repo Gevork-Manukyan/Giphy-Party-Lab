@@ -13,7 +13,20 @@ async function getGiphys (event) {
     const apiURL = `http://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchInput}&limit=${limit}`;
     // console.log(apiURL)
 
+    const responseData = await getResponse(apiURL);
+    console.log(getResultURLS(responseData));
+}
+
+async function getResponse(apiURL) {
     const response = await fetch(apiURL);
     const responseData = await response.json();
-    // console.log(responseData);
+    return responseData;
+}
+
+function getResultURLS (responseData) {
+    let urlArray = [];
+    responseData.data.forEach((element, index) => {
+        urlArray.push(element.images.original.url);
+    })
+    return urlArray;
 }
