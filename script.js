@@ -1,4 +1,4 @@
-const API_KEY = "ZJzvG87iB1XSOj2MEh6deyjhGrL3FqkN";
+const API_KEY = "YOUR_KEY";
 const limit = 10;
 let offset = 0;
 const rating = 'g';
