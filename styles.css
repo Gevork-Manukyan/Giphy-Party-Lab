@@ -2,12 +2,12 @@ header p{
     text-align: center;
 }
 
-#search-section {
+#searchSection {
     display: flex;
     justify-content: center;
 }
 
-#grid-container {
+#gridContainer {
     display: grid;
 }
 
