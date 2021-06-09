@@ -1,20 +1,22 @@
 const API_KEY = "ZJzvG87iB1XSOj2MEh6deyjhGrL3FqkN";
-const limit = 9;
+const limit = 10;
 const rating = 'g';
 
 const searchForm = document.querySelector("#searchForm");
+const imageArea = document.querySelector("#flex-container");
 
 searchForm.addEventListener("submit", getGiphys);
 async function getGiphys (event) {
     event.preventDefault();
     
     const searchInput = event.target.searchItem.value;
-    // console.log(event.target.searchItem.value)
     const apiURL = `http://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchInput}&limit=${limit}`;
-    // console.log(apiURL)
 
     const responseData = await getResponse(apiURL);
-    console.log(getResultURLS(responseData));
+    const urlArray = getImageURLS(responseData);
+    console.log(urlArray)
+
+    displayImages(urlArray);
 }
 
 async function getResponse(apiURL) {
@@ -23,10 +25,24 @@ async function getResponse(apiURL) {
     return responseData;
 }
 
-function getResultURLS (responseData) {
+function getImageURLS (responseData) {
     let urlArray = [];
     responseData.data.forEach((element, index) => {
         urlArray.push(element.images.original.url);
     })
     return urlArray;
+}
+
+function displayImages (urlArray) {
+    urlArray.forEach((element) => {
+        addImage(element);
+    })
+}
+
+function addImage (imgURL) {
+    imageArea.innerHTML += `
+    <div class="flex-item">
+        <img src="${imgURL}">
+    </div>
+    `;
 }

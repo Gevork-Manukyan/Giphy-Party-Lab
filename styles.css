@@ -7,10 +7,17 @@ header p{
     justify-content: center;
 }
 
-#gridContainer {
-    display: grid;
+#resultsArea {
+    margin: 3%;
+
 }
 
-.grid-item {
+#flex-container {
+    display: flex;
+    flex-wrap: wrap;
+}
 
+.flex-item {
+    margin: 10px;
+    justify-self: stretch;
 }
